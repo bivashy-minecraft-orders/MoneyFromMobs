@@ -123,16 +123,7 @@ public class MessageManager {
 			plugin.getLogger().log(Level.SEVERE, "You are using legacy coloring. Please consider switching to MiniMessage: https://docs.advntr.dev/minimessage/format.html");
 			return ChatColor.translateAlternateColorCodes('&', msg);
 		}
-		return
-		if ( VersionUtils.getVersionNumber() > 15) {
-			Matcher match = hexColorPattern.matcher(msg);
-			while (match.find()) {
-				String color = msg.substring(match.start(), match.end());
-				msg = msg.replace(color, ChatColor.valueOf(color) + "");
-				match = hexColorPattern.matcher(msg);
-			}
-		}
-		return
+		return Bukkit
 	}
 
 	public void logToConsole (String msg){
