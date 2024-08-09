@@ -10,7 +10,6 @@
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
     <build>
-        <sourceDirectory>MoneyFromMobs/src</sourceDirectory>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -20,6 +19,31 @@
                         <source>17</source>
                         <target>17</target>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>3.6.0</version>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>shade</goal>
+                            </goals>
+                            <configuration>
+                                <relocations>
+                                    <relocation>
+                                        <pattern>org.codehaus.plexus.util</pattern>
+                                        <shadedPattern>org.shaded.plexus.util</shadedPattern>
+                                        <excludes>
+                                            <exclude>org.codehaus.plexus.util.xml.Xpp3Dom</exclude>
+                                            <exclude>org.codehaus.plexus.util.xml.pull.*</exclude>
+                                        </excludes>
+                                    </relocation>
+                                </relocations>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>

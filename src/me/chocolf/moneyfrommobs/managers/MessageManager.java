@@ -1,6 +1,7 @@
 package me.chocolf.moneyfrommobs.managers;
 
 import java.util.HashMap;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -118,6 +119,11 @@ public class MessageManager {
 	
 	
 	public static String applyColour (String msg) {
+		if (msg.contains("&")) {
+			plugin.getLogger().log(Level.SEVERE, "You are using legacy coloring. Please consider switching to MiniMessage: https://docs.advntr.dev/minimessage/format.html");
+			return ChatColor.translateAlternateColorCodes('&', msg);
+		}
+		return
 		if ( VersionUtils.getVersionNumber() > 15) {
 			Matcher match = hexColorPattern.matcher(msg);
 			while (match.find()) {
@@ -126,7 +132,7 @@ public class MessageManager {
 				match = hexColorPattern.matcher(msg);
 			}
 		}
-		return ChatColor.translateAlternateColorCodes('&', msg);
+		return
 	}
 
 	public void logToConsole (String msg){
