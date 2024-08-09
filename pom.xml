@@ -111,6 +111,7 @@
             <groupId>dev.rosewood</groupId>
             <artifactId>rosestacker</artifactId>
             <version>1.5.7</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>io.lumine</groupId>
@@ -141,11 +142,6 @@
             <artifactId>InfernalMobs</artifactId>
             <version>5.8</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.chocolf</groupId>
-            <artifactId>MoneyFromMobs</artifactId>
-            <version>4.82</version>
         </dependency>
     </dependencies>
 </project>
