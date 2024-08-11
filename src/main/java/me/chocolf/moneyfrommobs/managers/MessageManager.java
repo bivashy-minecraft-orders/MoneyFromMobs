@@ -2,9 +2,10 @@ package me.chocolf.moneyfrommobs.managers;
 
 import java.util.HashMap;
 import java.util.logging.Level;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import net.kyori.adventure.platform.bukkit.BukkitComponentSerializer;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -14,7 +15,6 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.util.Vector;
 
 import me.chocolf.moneyfrommobs.MoneyFromMobs;
-import me.chocolf.moneyfrommobs.utils.VersionUtils;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -120,10 +120,10 @@ public class MessageManager {
 	
 	public static String applyColour (String msg) {
 		if (msg.contains("&")) {
-			plugin.getLogger().log(Level.SEVERE, "You are using legacy coloring. Please consider switching to MiniMessage: https://docs.advntr.dev/minimessage/format.html");
+			MoneyFromMobs.getInstance().getLogger().log(Level.SEVERE, "You are using legacy coloring. Please consider switching to MiniMessage: https://docs.advntr.dev/minimessage/format.html");
 			return ChatColor.translateAlternateColorCodes('&', msg);
 		}
-		return Bukkit
+		return BukkitComponentSerializer.legacy().serialize(MiniMessage.miniMessage().deserialize(msg));
 	}
 
 	public void logToConsole (String msg){
