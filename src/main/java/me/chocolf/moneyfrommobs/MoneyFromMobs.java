@@ -156,7 +156,7 @@ public class MoneyFromMobs extends JavaPlugin{
 			if (rsp.getProvider().hasGroupSupport())
 	        	permissions = rsp.getProvider();
 			else
-				this.getLogger().warning(MessageManager.applyColour("&cCOMPATIBLE PERMISSIONS PLUGIN NOT FOUND! PERMISSION GROUP MULTIPLIERS WILL NOT WORK!!!"));
+				this.getLogger().warning(MessageManager.applyColour("COMPATIBLE PERMISSIONS PLUGIN NOT FOUND! PERMISSION GROUP MULTIPLIERS WILL NOT WORK!!!"));
 	}
 	
 	private void loadConfigs() {

@@ -93,7 +93,7 @@ public class PickUpManager {
 				numberOfParticles = config.getInt("Particle.NumberOfParticles");
 			}
 			catch(Exception e) {
-				Bukkit.getConsoleSender().sendMessage(MessageManager.applyColour("&c[MoneyFromMobs] Unknown Particle Effect set in the Config! Please make sure it is spelt correctly!"));
+				Bukkit.getConsoleSender().sendMessage(MessageManager.applyColour("[MoneyFromMobs] Unknown Particle Effect set in the Config! Please make sure it is spelt correctly!"));
 				particleEffect = null;
 			}
 		}
@@ -137,7 +137,7 @@ public class PickUpManager {
 				p.playSound(loc, sound, volume, pitch);
 			}
 			catch (Exception e){
-				Bukkit.getConsoleSender().sendMessage(MessageManager.applyColour("&c[MoneyFromMobs] Unknown Sound set in the Config! Please make sure it is spelt correctly!"));
+				Bukkit.getConsoleSender().sendMessage(MessageManager.applyColour("[MoneyFromMobs] Unknown Sound set in the Config! Please make sure it is spelt correctly!"));
 			}
 		}
 

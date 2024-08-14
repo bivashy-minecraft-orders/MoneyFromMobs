@@ -36,7 +36,7 @@ public class AdminDropMoneyCommand implements CommandExecutor{
 				amount = Double.parseDouble(args[0]);
 			}
 			catch (Exception e) {
-				sender.sendMessage(MessageManager.applyColour("&cInvalid number."));
+				sender.sendMessage(MessageManager.applyColour("Invalid number."));
 				return false;
 			}
 
@@ -48,11 +48,11 @@ public class AdminDropMoneyCommand implements CommandExecutor{
 					numberOfDrops = Integer.parseInt(args[1]);
 				}
 				catch (Exception e) {
-					sender.sendMessage(MessageManager.applyColour("&cInvalid number."));
+					sender.sendMessage(MessageManager.applyColour("Invalid number."));
 					return false;
 				}
 				if (numberOfDrops > 25) {
-					sender.sendMessage(MessageManager.applyColour("&9Number of drops can not be above 25."));
+					sender.sendMessage(MessageManager.applyColour("Number of drops can not be above 25."));
 					numberOfDrops = 25;
 				}
 			}

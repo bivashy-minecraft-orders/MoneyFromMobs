@@ -30,7 +30,7 @@ public class PlayerDropMoneyCommand implements CommandExecutor{
 		DropsManager dropsManager = plugin.getDropsManager();
 
 		if (!(sender instanceof Player)) {
-			sender.sendMessage(MessageManager.applyColour("&cYou must be a player to use this command."));
+			sender.sendMessage(MessageManager.applyColour("You must be a player to use this command."));
 		}
 
 		if(args.length > 0) {
@@ -41,12 +41,12 @@ public class PlayerDropMoneyCommand implements CommandExecutor{
 				amount = Math.round(amount * 100.0) / 100.0; // changes it to 2 decimal places
 			}
 			catch (Exception e) {
-				sender.sendMessage(MessageManager.applyColour("&cInvalid number."));
+				sender.sendMessage(MessageManager.applyColour("Invalid number."));
 				return false;
 			}
 
 			if (plugin.getEcon().getBalance(p) < amount){
-				sender.sendMessage(MessageManager.applyColour("&cYou do not have enough money to drop the amount specified."));
+				sender.sendMessage(MessageManager.applyColour("You do not have enough money to drop the amount specified."));
 				return true;
 			}
 
