@@ -20,7 +20,7 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 
 public class MessageManager {
-	
+
 	private final MoneyFromMobs plugin;
 	private double floatingTextHeight;
 	private boolean shouldSendChatMessage;
@@ -31,7 +31,7 @@ public class MessageManager {
 	private double floatingTextDuration;
 	private final HashMap<String, String> messagesMap = new HashMap<>();
 	private static final Pattern hexColorPattern = Pattern.compile("#([A-Fa-f0-9]){6}");
-	
+
 	public MessageManager(MoneyFromMobs plugin) {
 		this.plugin = plugin;
 		loadMessage();
@@ -39,54 +39,54 @@ public class MessageManager {
 
 	public void loadMessage() {
 		FileConfiguration config = plugin.getConfig();
-		
+
 		floatingTextHeight = config.getDouble("ShowMessageAsFloatingText.Height")/4;
-		
+
 		shouldSendChatMessage = config.getBoolean("ShowMessageInChat.Enabled");
 		shouldSendActionBarMessage = config.getBoolean("ShowMessageInActionBar.Enabled");
 		shouldSendFloatingTextMessage = config.getBoolean("ShowMessageAsFloatingText.Enabled");
 		sendEventMessageAsTitle = config.getBoolean("SendEventMessageAsTitle");
 		moveFloatingTextMessageUpwards = config.getBoolean("ShowMessageAsFloatingText.Movement");
 		floatingTextDuration = config.getDouble("ShowMessageAsFloatingText.Duration") * 20;
-		
+
 		messagesMap.clear();
 		messagesMap.put("chatMessage", applyColour( config.getString("ShowMessageInChat.Message") ));
 		messagesMap.put("actionBarMessage", applyColour( config.getString("ShowMessageInActionBar.Message") ));
 		messagesMap.put("floatingTextMessage", applyColour( config.getString("ShowMessageAsFloatingText.Message") ));
 		messagesMap.put("playerMessage", applyColour( config.getString("PLAYER.Message") ));
-		
+
 		messagesMap.put("muteToggleOnMessage", applyColour( config.getString("MuteToggleOnMessage") ));
 		messagesMap.put("muteToggleOffMessage", applyColour( config.getString("MuteToggleOffMessage") ));
-		
+
 		messagesMap.put("clearMoneyDropsMessage", applyColour(config.getString("ClearMoneyDropsMessage") ));
 		messagesMap.put("reloadMessage", applyColour(config.getString("ReloadMessage") ));
-		
+
 		messagesMap.put("maxDropsReachedMessage", applyColour(config.getString("MaxDropsReachedMessage") ));
-		
+
 		messagesMap.put("eventAlreadyRunningMessage", applyColour(config.getString("EventAlreadyRunningMessage") ));
 		messagesMap.put("noEventRunningMessage", applyColour(config.getString("NoEventRunningMessage") ));
 		messagesMap.put("eventStart", applyColour(config.getString("EventStart") ));
 		messagesMap.put("eventFinish", applyColour(config.getString("EventFinish") ));
 	}
-	
+
 	public void sendMessage(String strAmount, Player p) {
 		if ( p.hasMetadata("MfmMuteMessages"))
 			return;
-		
+
 		double balance = plugin.getEcon().getBalance(p);
 		if (shouldSendChatMessage) {
 			p.sendMessage(getMessage("chatMessage", balance, strAmount));
 		}
-		
+
 		if (shouldSendActionBarMessage) {
 			p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(getMessage("actionBarMessage", balance, strAmount)));
 		}
-		
+
 		if (shouldSendFloatingTextMessage) {
 			sendFloatingTextMessage(getMessage("floatingTextMessage", balance, strAmount), p.getLocation());
 		}
 	}
-	
+
 	public void sendPlayerMessage(double amount, Player p) {
 		String strAmount = String.format("%.2f", amount);
 		double balance = plugin.getEcon().getBalance(p);
@@ -116,9 +116,12 @@ public class MessageManager {
 
 		Bukkit.getScheduler().runTaskLater(plugin, armorstand::remove, (long) floatingTextDuration);
 	}
-	
-	
+
+
 	public static String applyColour (String msg) {
+		if (msg.contains("§")) {
+			return msg;
+		}
 		if (msg.contains("&")) {
 			MoneyFromMobs.getInstance().getLogger().log(Level.SEVERE, "You are using legacy coloring. Please consider switching to MiniMessage: https://docs.advntr.dev/minimessage/format.html");
 			return ChatColor.translateAlternateColorCodes('&', msg);
@@ -129,11 +132,11 @@ public class MessageManager {
 	public void logToConsole (String msg){
 		plugin.getServer().getConsoleSender().sendMessage(MessageManager.applyColour(msg));
 	}
-	
+
 	public String getMessage(String messageName) {
 		return messagesMap.get(messageName);
 	}
-	
+
 	private String getMessage(String messageName, double balance, String strAmount) {
 		return messagesMap.get(messageName).replace("%amount%", strAmount).replace("%balance%", String.format("%.2f", balance)).replace("%balance_0dp%", String.format("%.0f", balance) );
 	}
